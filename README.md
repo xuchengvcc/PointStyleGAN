@@ -1,5 +1,6 @@
-<div align="center">
 # [Point-StyleGAN: Multi-scale Point Cloud Synthesis with Style Modulation] 
+
+[Yang Zhou](https://zhouyangvcc.github.io/), [Zichong Chen](https://github.com/zichongc), [Hui Huang](https://vcc.tech/~huihuang)
 
 <p>
 <img src="pictures/teaser.png" width="2500" alt=""/>
