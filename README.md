@@ -2,7 +2,7 @@
 # [Point-StyleGAN: Multi-scale Point Cloud Synthesis with Style Modulation] 
 
 <p>
-<img src="pictures/teaser.png" width="2873" alt=""/>
+<img src="pictures/teaser.png" width="2500" alt=""/>
 </p>
 
 ### Abstract
@@ -10,7 +10,7 @@
 
 ### Overview
 <p>
-<img src="pictures/overview.png" width="2873" alt=""/>
+<img src="pictures/overview.png" width="2500" alt=""/>
 </p>
 
 ## Citation
