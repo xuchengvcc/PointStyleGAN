@@ -1,0 +1,3 @@
+# ninja log v5
+1	13879	1699003209216160432	/home/zhiqiang/home/ubuntu/xiangmu/PointStyleGAN2/metrics/CD_EMD/emd_/build/temp.linux-x86_64-3.8/emd/emd_cuda.o	6c9a93476170e605
+0	29721	1699003225052166926	/home/zhiqiang/home/ubuntu/xiangmu/PointStyleGAN2/metrics/CD_EMD/emd_/build/temp.linux-x86_64-3.8/emd/emd.o	897bd7c4b2ea113a

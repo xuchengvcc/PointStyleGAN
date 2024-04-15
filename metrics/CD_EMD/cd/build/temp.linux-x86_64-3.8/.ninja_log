@@ -1,0 +1,3 @@
+# ninja log v5
+1	13969	1699003119356123885	/home/zhiqiang/home/ubuntu/xiangmu/PointStyleGAN2/metrics/CD_EMD/cd/build/temp.linux-x86_64-3.8/chamferdist/chamfer.o	ba14d3d0140cf650
+0	29545	1699003134928130179	/home/zhiqiang/home/ubuntu/xiangmu/PointStyleGAN2/metrics/CD_EMD/cd/build/temp.linux-x86_64-3.8/chamferdist/chamfer_cuda.o	86fa6b4c32db082b

@@ -4,7 +4,7 @@
 Shenzhen University
 
 <p>
-<img src="pictures/teaser.jpg" width="2873" alt=""/>
+    <img src="pictures/teaser.png" style="width: 80%;" alt="teaser"/>
 </p>
 
 
@@ -23,9 +23,16 @@ GAN inversion demonstrate the advantages of our method. We believe the potential
 architecture would further inspire massive follow-up works.
 
 ### Overview
+
 <p>
-<img src="pictures/overview.jpg" width="2873" alt=""/>
+    <img src="pictures/overview.png" style="width: 80%;" alt="overview"/>
 </p>
+
+
+### Dataset
+
+[ShapeNetCoreV2](https://drive.google.com/drive/folders/1mjP_dhl1DQL42a9bS3NH20oo_XxlNBzQ?usp=sharing)
+
 
 <!-- ## Citation
 
