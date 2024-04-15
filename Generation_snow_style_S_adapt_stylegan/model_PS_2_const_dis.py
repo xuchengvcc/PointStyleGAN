@@ -89,10 +89,6 @@ class Model(object):
         self.D7 = Discriminator(self.opts)
         self.D8 = Discriminator(self.opts)
         self.D9 = Discriminator(self.opts)
-        if self.opts.use_local_D:
-            pass
-        else:
-            self.Dlocal = nn.Identity()
 
         self.multi_gpu = False
 
@@ -108,8 +104,6 @@ class Model(object):
         self.D7.cuda()
         self.D8.cuda()
         self.D9.cuda()
-        if self.opts.use_local_D:
-            self.Dlocal.cuda()
 
         """ Training """
 
@@ -134,9 +128,6 @@ class Model(object):
         self.optimizerD8 = optim.Adam(filter(lambda p: p.requires_grad, self.D8.parameters()), lr=self.opts.lr_d,
                                       betas=(beta1, beta2))
         self.optimizerD9 = optim.Adam(filter(lambda p: p.requires_grad, self.D9.parameters()), lr=self.opts.lr_d,
-                                      betas=(beta1, beta2))
-        if self.opts.use_local_D:
-            self.optimizerDlocal = optim.Adam(filter(lambda p: p.requires_grad, self.Dlocal.parameters()), lr=self.opts.lr_d,
                                       betas=(beta1, beta2))
 
         if self.opts.lr_decay:
@@ -261,8 +252,6 @@ class Model(object):
             self.D7.train()
             self.D8.train()
             self.D9.train()
-            if self.opts.use_local_D:
-                self.Dlocal.train()
             self.G.train()
 
             step_d = 0
@@ -436,23 +425,6 @@ class Model(object):
                 # if not torch.any(torch.isnan(lossD9)):
                 lossD9.backward()
                 self.optimizerD9.step()
-                # -----------------------------------train Dlocal-----------------------------------
-                if self.opts.use_local_D:
-                    self.set_grad(9)
-                    self.optimizerDlocal.zero_grad()
-
-                    d_fake_preds9 = d_fake_preds[-1].permute(0, 2, 1).contiguous()
-                    d_fake_preds9 = d_fake_preds9.detach()
-
-                    d_real_logitlocal = self.Dlocal(real_points9)
-                    d_fake_logitlocal = self.Dlocal(d_fake_preds9)
-
-                    lossDlocal, info = loss_utils.dis_loss(d_real_logitlocal, d_fake_logitlocal, gan=self.opts.gan,
-                                                    noise_label=self.opts.flip_d)
-                    lossDlocal.backward()
-                    self.optimizerDlocal.step()
-                else:
-                    lossDlocal = torch.zeros(1)
 
                 # -----------------------------------train G-----------------------------------
                 self.set_grad(0)
@@ -485,9 +457,6 @@ class Model(object):
                 g_fake_logit8, feat_dis8 = self.D8(g_fake_preds8, return_feats=True)
                 g_real_logit9 = self.D9(real_points9)
                 g_fake_logit9, feat_dis9 = self.D9(g_fake_preds9, return_feats=True)
-                if self.opts.use_local_D:
-                    g_real_logitlocal = self.Dlocal(real_points9)
-                    g_fake_logitlocal = self.Dlocal(g_fake_preds9)
 
                 # for pair1 in range(self.opts.feat_const_batch):
                 #     tmp = 0
@@ -554,17 +523,12 @@ class Model(object):
                                                 noise_label=self.opts.flip_g)
                 lossG9, _ = loss_utils.gen_loss(g_real_logit9, g_fake_logit9, gan=self.opts.gan,
                                                 noise_label=self.opts.flip_g)
-                if self.opts.use_local_D:
-                    lossGlocal, _ = loss_utils.gen_loss(g_real_logitlocal, g_fake_logitlocal, gan=self.opts.gan,
-                                                    noise_label=self.opts.flip_g)
-                else:
-                    lossGlocal = 0
 
                 # _3
                 if self.opts.use_log_weight:    
-                    lossG = self.weight[-8] * lossG2 + self.weight[-7] * lossG3 + self.weight[-6] * lossG4 + self.weight[-5] * lossG5 + self.weight[-4] * lossG6 + self.weight[-3] * lossG7 + self.weight[-2] * lossG8 + self.weight[-1] * lossG9 + lossGlocal + 0.001 * rel_loss
+                    lossG = self.weight[-8] * lossG2 + self.weight[-7] * lossG3 + self.weight[-6] * lossG4 + self.weight[-5] * lossG5 + self.weight[-4] * lossG6 + self.weight[-3] * lossG7 + self.weight[-2] * lossG8 + self.weight[-1] * lossG9 + 0.001 * rel_loss
                 else:
-                    lossG = 0.001 * ( lossG2 + lossG3 + lossG4) + 0.1 * (lossG5 + lossG6) + lossG7 + lossG8 + lossG9 + lossGlocal + 0.001 * rel_loss
+                    lossG = 0.001 * ( lossG2 + lossG3 + lossG4) + 0.1 * (lossG5 + lossG6) + lossG7 + lossG8 + lossG9 + 0.001 * rel_loss
                 # if not torch.any(torch.isnan(lossG)):
                 lossG.backward()
                 self.optimizerG.step()
@@ -784,7 +748,7 @@ class Model(object):
             os.mkdir(os.path.join(base, 'ckpt'))
 
     def set_grad(self, Module_num):
-        Module = [self.G, self.D2, self.D3, self.D4, self.D5, self.D6, self.D7, self.D8, self.D9, self.Dlocal]
+        Module = [self.G, self.D2, self.D3, self.D4, self.D5, self.D6, self.D7, self.D8, self.D9]
         for i,module in enumerate(Module):
             if i == Module_num:
                 requires_grad(module, True)
