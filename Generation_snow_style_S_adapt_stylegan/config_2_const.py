@@ -183,7 +183,6 @@ parser.add_argument('--dataset_scale', type=float, default=1.,help='Scale of the
 parser.add_argument('--normalize_per_shape', action='store_true',help='Whether to perform normalization per shape.')
 parser.add_argument('--normalize_std_per_axis', action='store_true',help='Whether to perform normalization per axis.')
 
-parser.add_argument('--use_local_D', type=bool, default=True, help='use local patch discriminator or not')
 parser.add_argument('--use_log_weight', type=bool, default=True, help='use local patch discriminator or not')
 
 opts = check_args(parser.parse_args())
