@@ -1,7 +1,7 @@
 # [Point-StyleGAN: Multi-scale Point Cloud Synthesis with Style Modulation] 
 
-[Yang Zhou](https://zhouyangvcc.github.io/), [Cheng Xu](https://github.com/xuchengvcc), [Hui Huang](https://vcc.tech/~huihuang)
-Shenzhen University
+[Yang Zhou](https://zhouyangvcc.github.io/), [Cheng Xu](https://github.com/xuchengvcc), [Zhiqiang Lin](), [Xinwei He](https://eriche2016.github.io/), [Hui Huang](https://vcc.tech/~huihuang)
+<!-- Shenzhen University -->
 
 <p>
     <img src="pictures/teaser.png" style="width: 80%;" alt="teaser"/>
